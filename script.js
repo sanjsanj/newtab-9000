@@ -163,13 +163,19 @@ function append (parent, childArray) {
 }
 
 let weekday = new Array(7);
-weekday[0] =  "Sunday";
+weekday[0] = "Sunday";
 weekday[1] = "Monday";
 weekday[2] = "Tuesday";
 weekday[3] = "Wednesday";
 weekday[4] = "Thursday";
 weekday[5] = "Friday";
 weekday[6] = "Saturday";
+
+function dayName (index) {
+  return index >= 6
+    ? weekday[0]
+    : weekday[date.getDay() + index];
+}
 
 data.consolidated_weather.map((item, index) => {
   const minTemp = createNode(item.min_temp.toFixed(0), "min-temp");
@@ -179,7 +185,7 @@ data.consolidated_weather.map((item, index) => {
 
   const condition = createIcon(item.weather_state_abbr);
 
-  const day = createNode(weekday[date.getDay() + index], "weather-day");
+  const day = createNode(dayName(index), "weather-day");
 
   const dayItem = createNode(null, "weather-day-item");
 
