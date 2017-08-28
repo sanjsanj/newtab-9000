@@ -162,6 +162,15 @@ function append (parent, childArray) {
   return childArray.map(child => parent.appendChild(child));
 }
 
+let weekday = new Array(7);
+weekday[0] =  "Sunday";
+weekday[1] = "Monday";
+weekday[2] = "Tuesday";
+weekday[3] = "Wednesday";
+weekday[4] = "Thursday";
+weekday[5] = "Friday";
+weekday[6] = "Saturday";
+
 data.consolidated_weather.map((item, index) => {
   const minTemp = createNode(item.min_temp.toFixed(0), "min-temp");
   const maxTemp = createNode(item.max_temp.toFixed(0), "max-temp");
@@ -169,8 +178,11 @@ data.consolidated_weather.map((item, index) => {
   append(temp, [minTemp, maxTemp]);
 
   const condition = createIcon(item.weather_state_abbr);
+
+  const day = createNode(weekday[date.getDay() + index], "weather-day");
+
   const dayItem = createNode(null, "weather-day-item");
 
-  append(dayItem, [temp, condition]);
+  append(dayItem, [temp, condition, day]);
   append(weatherContainer, [dayItem]);
 })
