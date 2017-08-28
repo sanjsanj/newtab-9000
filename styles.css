@@ -1,0 +1,46 @@
+body {
+  overflow: hidden;
+}
+
+#wrapper {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    min-width: 100vw;
+    min-height: 100vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#container {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 2px;
+}
+
+#daytime-container {
+  font-size: 60px;
+  margin-bottom: 30px;
+}
+
+.temp {
+  display: block;
+  font-size: 20px;
+}
+
+.min-temp {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.max-temp {
+  display: inline-block;
+}
+
+.weather-day-item {
+  display: inline-block;
+  padding: 0 20px;
+}
