@@ -205,7 +205,7 @@ function soap () {
         <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thalesgroup.com/RTTI/2014-02-20/ldb/" xmlns:ns2="http://thalesgroup.com/RTTI/2010-11-01/ldb/commontypes">
           <SOAP-ENV:Header>
             <ns2:AccessToken>
-              <ns2:TokenValue>0104ba6b-e4ec-4e48-95e5-4549bed1bce0</ns2:TokenValue>
+              <ns2:TokenValue></ns2:TokenValue>
             </ns2:AccessToken>
           </SOAP-ENV:Header>
           <SOAP-ENV:Body>
