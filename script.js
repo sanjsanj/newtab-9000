@@ -143,7 +143,7 @@ const data = {
    "timezone":"Europe/London"
 }
 
-function createNode (value, className) {
+function createDiv (value, className) {
   let element;
   element = document.createElement("div");
   element.innerText = value;
@@ -171,36 +171,36 @@ weekday[4] = "Thursday";
 weekday[5] = "Friday";
 weekday[6] = "Saturday";
 
-function dayName (index) {
+function getDayName (index) {
   return index >= 6
     ? weekday[0]
     : weekday[date.getDay() + index];
 }
 
 data.consolidated_weather.slice(0, 2).map((item, index) => {
-  const minTemp = createNode(item.min_temp.toFixed(0), "min-temp");
-  const maxTemp = createNode(item.max_temp.toFixed(0), "max-temp");
-  const temp = createNode(null, "temp");
+  const minTemp = createDiv(item.min_temp.toFixed(0), "min-temp");
+  const maxTemp = createDiv(item.max_temp.toFixed(0), "max-temp");
+  const temp = createDiv(null, "temp");
   append(temp, [minTemp, maxTemp]);
 
   const condition = createIcon(item.weather_state_abbr);
 
-  const day = createNode(dayName(index), "weather-day");
+  const day = createDiv(getDayName(index), "weather-day");
 
-  const dayItem = createNode(null, "weather-day-item");
+  const dayItem = createDiv(null, "weather-day-item");
 
   append(dayItem, [temp, condition, day]);
   append(weatherContainer, [dayItem]);
 })
 
-function soap () {
-    var xmlhttp = new XMLHttpRequest();
+{
+    let xmlhttp = new XMLHttpRequest();
 
     // http://nrodwiki.rockshore.net/index.php/NRE_Darwin_Web_Service_(Public)
     xmlhttp.open('POST', 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb9.asmx', true);
 
     // https://stackoverflow.com/questions/124269/simplest-soap-example
-    var sr =
+    const sr =
         `<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:typ="http://thalesgroup.com/RTTI/2013-11-28/Token/types" xmlns:ldb="http://thalesgroup.com/RTTI/2016-02-16/ldb/">
           <soap:Header>
               <typ:AccessToken>
@@ -208,38 +208,29 @@ function soap () {
               </typ:AccessToken>
           </soap:Header>
           <soap:Body>
-              <ldb:GetNextDeparturesWithDetailsRequest>
+              <ldb:GetDepartureBoardRequest>
+                <ldb:numRows>3</ldb:numRows>
                 <ldb:crs>NSG</ldb:crs>
-                <ldb:filterList>
-                    <ldb:crs>OLD</ldb:crs>
-                </ldb:filterList>
+                <ldb:filterCrs>OLD</ldb:filterCrs>
+                <ldb:filterType>to</ldb:filterType>
                 <ldb:timeOffset>10</ldb:timeOffset>
                 <ldb:timeWindow>120</ldb:timeWindow>
-              </ldb:GetNextDeparturesWithDetailsRequest>
+              </ldb:GetDepartureBoardRequest>
           </soap:Body>
         </soap:Envelope>`;
 
-    xmlhttp.onreadystatechange = function () {
+    xmlhttp.onreadystatechange = () => {
         if (xmlhttp.readyState == 4) {
             if (xmlhttp.status == 200) {
               // https://github.com/metatribal/xmlToJSON
               let result = xmlToJSON.parseString(xmlhttp.response);
               console.log('result:', result);
-              console.log('services:', result.Envelope["0"].Body["0"].GetNextDeparturesWithDetailsResponse["0"].DeparturesBoard["0"].departures["0"].destination["0"].service);
-              console.log('std:', result.Envelope["0"].Body["0"].GetNextDeparturesWithDetailsResponse["0"].DeparturesBoard["0"].departures["0"].destination["0"].service["0"].std[0]._text);
-              console.log('etd:', result.Envelope["0"].Body["0"].GetNextDeparturesWithDetailsResponse["0"].DeparturesBoard["0"].departures["0"].destination["0"].service["0"].etd[0]._text);
-              // var result = json.Body[0].GetQuoteResponse[0].GetQuoteResult[0].Text;
-              // Result text is escaped XML string, convert string to XML object then convert to JSON object
-              // json = XMLObjectifier.xmlToJSON(XMLObjectifier.textToXML(result));
-              // alert(symbol + ' Stock Quote: $' + json.Stock[0].Last[0].Text); 
+              console.log('services:', result.Envelope["0"].Body["0"].GetDepartureBoardResponse["0"].GetStationBoardResult["0"].trainServices["0"].service);
+              console.log('std:', result.Envelope["0"].Body["0"].GetDepartureBoardResponse["0"].GetStationBoardResult["0"].trainServices["0"].service["0"].std[0]._text);
+              console.log('etd:', result.Envelope["0"].Body["0"].GetDepartureBoardResponse["0"].GetStationBoardResult["0"].trainServices["0"].service["0"].etd[0]._text);
             }
         }
     }
-    // Send the POST request
     xmlhttp.setRequestHeader('Content-Type', 'text/xml');
     xmlhttp.send(sr);
-    // send request
-    // ...
 }
-
-soap ();
