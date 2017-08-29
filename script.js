@@ -177,7 +177,7 @@ function dayName (index) {
     : weekday[date.getDay() + index];
 }
 
-data.consolidated_weather.map((item, index) => {
+data.consolidated_weather.slice(0, 2).map((item, index) => {
   const minTemp = createNode(item.min_temp.toFixed(0), "min-temp");
   const maxTemp = createNode(item.max_temp.toFixed(0), "max-temp");
   const temp = createNode(null, "temp");
@@ -192,3 +192,50 @@ data.consolidated_weather.map((item, index) => {
   append(dayItem, [temp, condition, day]);
   append(weatherContainer, [dayItem]);
 })
+
+function soap () {
+    var xmlhttp = new XMLHttpRequest();
+
+    // http://nrodwiki.rockshore.net/index.php/NRE_Darwin_Web_Service_(Public)
+    xmlhttp.open('POST', 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb6.asmx', true);
+
+    // https://stackoverflow.com/questions/124269/simplest-soap-example
+    var sr =
+        `<?xml version="1.0"?>
+        <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thalesgroup.com/RTTI/2014-02-20/ldb/" xmlns:ns2="http://thalesgroup.com/RTTI/2010-11-01/ldb/commontypes">
+          <SOAP-ENV:Header>
+            <ns2:AccessToken>
+              <ns2:TokenValue>0104ba6b-e4ec-4e48-95e5-4549bed1bce0</ns2:TokenValue>
+            </ns2:AccessToken>
+          </SOAP-ENV:Header>
+          <SOAP-ENV:Body>
+            <ns1:GetDepartureBoardRequest>
+              <ns1:numRows>10</ns1:numRows>
+              <ns1:crs>MAN</ns1:crs>
+            </ns1:GetDepartureBoardRequest>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>`;
+
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+              console.log('xmlhttp:', xmlhttp);
+              console.log('xmlhttp.response:', xmlhttp.response);
+              // https://github.com/metatribal/xmlToJSON
+              let result = xmlToJSON.parseString(xmlhttp.response);
+              console.log('result:', result);
+              // var result = json.Body[0].GetQuoteResponse[0].GetQuoteResult[0].Text;
+              // Result text is escaped XML string, convert string to XML object then convert to JSON object
+              // json = XMLObjectifier.xmlToJSON(XMLObjectifier.textToXML(result));
+              // alert(symbol + ' Stock Quote: $' + json.Stock[0].Last[0].Text); 
+            }
+        }
+    }
+    // Send the POST request
+    xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+    xmlhttp.send(sr);
+    // send request
+    // ...
+}
+
+soap ();
