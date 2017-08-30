@@ -2,7 +2,7 @@
   "name": "Sanj's newtab 9000",
   "version": "9.0.0.0",
   "manifest_version": 2,
-  "description": "A personal newtab page",
+  "description": "A newtab page",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",

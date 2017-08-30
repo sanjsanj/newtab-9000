@@ -197,14 +197,15 @@ data.consolidated_weather.slice(0, 2).map((item, index) => {
     let xmlhttp = new XMLHttpRequest();
 
     // http://nrodwiki.rockshore.net/index.php/NRE_Darwin_Web_Service_(Public)
-    xmlhttp.open('POST', 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb9.asmx', true);
-
     // https://stackoverflow.com/questions/124269/simplest-soap-example
+
+    xmlhttp.open('POST', 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb9.asmx', true);
+    
     const sr =
         `<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:typ="http://thalesgroup.com/RTTI/2013-11-28/Token/types" xmlns:ldb="http://thalesgroup.com/RTTI/2016-02-16/ldb/">
           <soap:Header>
               <typ:AccessToken>
-                <typ:TokenValue></typ:TokenValue>
+                <typ:TokenValue>${secrets.railApiToken}</typ:TokenValue>
               </typ:AccessToken>
           </soap:Header>
           <soap:Body>
