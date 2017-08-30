@@ -160,7 +160,7 @@ function createIcon (value) {
 
 function append (parent, childArray) {
   return childArray.map(child => {
-    if (child === undefined) return;
+    if (!child) return;
     parent.appendChild(child)
   });
 }
@@ -295,7 +295,7 @@ function setIssueLabels (issueNumber, anchorDiv) {
   fetch(`https://api.github.com/repos/ComparetheMarket/EpiServerCTM/issues/${issueNumber}/labels?access_token=${secrets.gitToken}`)
   .then(response => response.json())
   .then(labelData => {
-    const element = createDiv(labelData[0].name, "issue-label");
+    const element = (labelData[0] === undefined) ? null : createDiv(labelData[0].name, "issue-label");
     append(anchorDiv, [element]);
   })
   .catch(err => console.log(err))
