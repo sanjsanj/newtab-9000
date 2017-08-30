@@ -159,7 +159,10 @@ function createIcon (value) {
 }
 
 function append (parent, childArray) {
-  return childArray.map(child => parent.appendChild(child));
+  return childArray.map(child => {
+    if (child === undefined) return;
+    parent.appendChild(child)
+  });
 }
 
 let weekday = new Array(7);
@@ -281,19 +284,31 @@ function createAnchor (text, url) {
 function recentlyUpdatedOpenIssues (item) {
   const xDays = 1000 * 60 * 60 * 24 * 1;
   const nowMinusXDays = new Date().getTime() - xDays;
-  if ((item.state === "open") && (new Date(item.updated_at).getTime() >= (nowMinusXDays))) {
-    console.log(item);
-    return item
-  };
+  if ((item.state === "open") && (new Date(item.updated_at).getTime() >= (nowMinusXDays))) return item;
+}
+
+function openIssues (item) {
+  if (item.state === "open") return item;
+}
+
+function setIssueLabels (issueNumber, anchorDiv) {
+  fetch(`https://api.github.com/repos/ComparetheMarket/EpiServerCTM/issues/${issueNumber}/labels?access_token=${secrets.gitToken}`)
+  .then(response => response.json())
+  .then(labelData => {
+    const element = createDiv(labelData[0].name, "issue-label");
+    append(anchorDiv, [element]);
+  })
+  .catch(err => console.log(err))
 }
 
 fetch(secrets.git)
 .then(response => response.json())
 .then(data => {
-  const openIssues = data.filter(openIssue => recentlyUpdatedOpenIssues(openIssue));
-  openIssues.map(issue => {
+  const openIssuesArray = data.filter(item => openIssues(item));
+  openIssuesArray.map(issue => {
     const anchor = createAnchor(issue.head.ref, issue.html_url);
     const anchorDiv = createDiv(null, "anchor-container");
+    setIssueLabels(issue.number, anchorDiv);
     append(anchorDiv, [anchor]);
     append(issuesContainer, [anchorDiv]);
   })
