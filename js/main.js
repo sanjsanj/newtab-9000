@@ -262,7 +262,7 @@ function soapRequest (from, to) {
                 <ldb:crs>${from}</ldb:crs>
                 <ldb:filterCrs>${to}</ldb:filterCrs>
                 <ldb:filterType>to</ldb:filterType>
-                <ldb:timeOffset>10</ldb:timeOffset>
+                <ldb:timeOffset>5</ldb:timeOffset>
                 <ldb:timeWindow>120</ldb:timeWindow>
               </ldb:GetDepartureBoardRequest>
           </soap:Body>
@@ -278,11 +278,19 @@ function createAnchor (text, url) {
   return anchor;
 }
 
+function recentlyUpdatedOpenIssues (item) {
+  const xDays = 1000 * 60 * 60 * 24 * 1;
+  const nowMinusXDays = new Date().getTime() - xDays;
+  if ((item.state === "open") && (new Date(item.updated_at).getTime() >= (nowMinusXDays))) {
+    console.log(item);
+    return item
+  };
+}
+
 fetch(secrets.git)
 .then(response => response.json())
 .then(data => {
-  const openIssues = data.filter(item => item.state === "open" );
-  console.log(openIssues);
+  const openIssues = data.filter(openIssue => recentlyUpdatedOpenIssues(openIssue));
   openIssues.map(issue => {
     const anchor = createAnchor(issue.head.ref, issue.html_url);
     const anchorDiv = createDiv(null, "anchor-container");
