@@ -200,9 +200,57 @@ data.consolidated_weather.slice(0, 2).map((item, index) => {
     // https://stackoverflow.com/questions/124269/simplest-soap-example
 
     xmlhttp.open('POST', 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb9.asmx', true);
-    
-    const sr =
-        `<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:typ="http://thalesgroup.com/RTTI/2013-11-28/Token/types" xmlns:ldb="http://thalesgroup.com/RTTI/2016-02-16/ldb/">
+
+    xmlhttp.onreadystatechange = () => {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+              // https://github.com/metatribal/xmlToJSON
+              const result = xmlToJSON.parseString(xmlhttp.response);
+              const toOldContainer = document.getElementById("train-time-to-old");
+              const services = result.Envelope["0"].Body["0"].GetDepartureBoardResponse["0"].GetStationBoardResult["0"].trainServices["0"].service;
+              services.map((item) => {
+                const std = item.std[0]._text;
+                const etd = item.etd[0]._text;
+                const stdDiv = createDiv(std, "std");
+                const etdDiv = createDiv(etd, "etd");
+                const timeBlock = createDiv(null, "time-block");
+                append(timeBlock, [stdDiv, etdDiv]);
+                append(toOldContainer, [timeBlock]);
+              })
+            }
+        }
+    }
+    xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+    xmlhttp.send(soapRequest("NSG", "OLD"));
+}
+
+{
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('POST', 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb9.asmx', true);
+    xmlhttp.onreadystatechange = () => {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+              const result = xmlToJSON.parseString(xmlhttp.response);
+              const toNsgContainer = document.getElementById("train-time-to-nsg");
+              const services = result.Envelope["0"].Body["0"].GetDepartureBoardResponse["0"].GetStationBoardResult["0"].trainServices["0"].service;
+              services.map((item) => {
+                const std = item.std[0]._text;
+                const etd = item.etd[0]._text;
+                const stdDiv = createDiv(std, "std");
+                const etdDiv = createDiv(etd, "etd");
+                const timeBlock = createDiv(null, "time-block");
+                append(timeBlock, [stdDiv, etdDiv]);
+                append(toNsgContainer, [timeBlock]);
+              })
+            }
+        }
+    }
+    xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+    xmlhttp.send(soapRequest("OLD", "NSG"));
+}
+
+function soapRequest (from, to) {
+  return `<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:typ="http://thalesgroup.com/RTTI/2013-11-28/Token/types" xmlns:ldb="http://thalesgroup.com/RTTI/2016-02-16/ldb/">
           <soap:Header>
               <typ:AccessToken>
                 <typ:TokenValue>${secrets.railApiToken}</typ:TokenValue>
@@ -211,27 +259,12 @@ data.consolidated_weather.slice(0, 2).map((item, index) => {
           <soap:Body>
               <ldb:GetDepartureBoardRequest>
                 <ldb:numRows>3</ldb:numRows>
-                <ldb:crs>NSG</ldb:crs>
-                <ldb:filterCrs>OLD</ldb:filterCrs>
+                <ldb:crs>${from}</ldb:crs>
+                <ldb:filterCrs>${to}</ldb:filterCrs>
                 <ldb:filterType>to</ldb:filterType>
                 <ldb:timeOffset>10</ldb:timeOffset>
                 <ldb:timeWindow>120</ldb:timeWindow>
               </ldb:GetDepartureBoardRequest>
           </soap:Body>
         </soap:Envelope>`;
-
-    xmlhttp.onreadystatechange = () => {
-        if (xmlhttp.readyState == 4) {
-            if (xmlhttp.status == 200) {
-              // https://github.com/metatribal/xmlToJSON
-              let result = xmlToJSON.parseString(xmlhttp.response);
-              console.log('result:', result);
-              console.log('services:', result.Envelope["0"].Body["0"].GetDepartureBoardResponse["0"].GetStationBoardResult["0"].trainServices["0"].service);
-              console.log('std:', result.Envelope["0"].Body["0"].GetDepartureBoardResponse["0"].GetStationBoardResult["0"].trainServices["0"].service["0"].std[0]._text);
-              console.log('etd:', result.Envelope["0"].Body["0"].GetDepartureBoardResponse["0"].GetStationBoardResult["0"].trainServices["0"].service["0"].etd[0]._text);
-            }
-        }
-    }
-    xmlhttp.setRequestHeader('Content-Type', 'text/xml');
-    xmlhttp.send(sr);
 }

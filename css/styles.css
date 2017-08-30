@@ -54,3 +54,18 @@ body {
 .condition {
   margin-bottom: 10px;
 }
+
+#trains-container {}
+
+#train-time-to-old {}
+
+#train-time-to-nsg {}
+
+.time-block {
+  display: inline-block;
+  padding: 0 20px;
+}
+
+.std {}
+
+.etd {}
