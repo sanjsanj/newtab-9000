@@ -22,14 +22,17 @@ a {
 
 #container {
   padding: 20px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.75);
   color: white;
   border-radius: 2px;
 }
 
+.padded {
+  padding: 20px;
+}
+
 #daytime-container {
   font-size: 60px;
-  margin-bottom: 30px;
 }
 
 .weather-container {
