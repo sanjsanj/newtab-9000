@@ -3,6 +3,11 @@ body {
   margin: 0;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}
+
 #wrapper {
     background-size: cover;
     background-repeat: no-repeat;

@@ -268,3 +268,26 @@ function soapRequest (from, to) {
           </soap:Body>
         </soap:Envelope>`;
 }
+
+const issuesContainer = document.getElementById("issues-container");
+
+function createAnchor (text, url) {
+  let anchor = document.createElement("a");
+  anchor.innerText = text;
+  anchor.href = url;
+  return anchor;
+}
+
+fetch(secrets.git)
+.then(response => response.json())
+.then(data => {
+  const openIssues = data.filter(item => item.state === "open" );
+  console.log(openIssues);
+  openIssues.map(issue => {
+    const anchor = createAnchor(issue.head.ref, issue.html_url);
+    const anchorDiv = createDiv(null, "anchor-container");
+    append(anchorDiv, [anchor]);
+    append(issuesContainer, [anchorDiv]);
+  })
+})
+.catch(err => console.log(err))
