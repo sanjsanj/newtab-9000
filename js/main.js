@@ -28,7 +28,7 @@ fetch("https://www.metaweather.com/api/location/44418/")
     const maxTemp = createDiv(item.max_temp.toFixed(0), "max-temp");
     const temp = createDiv(null, "temp");
     append(temp, [minTemp, maxTemp]);
-    const condition = createIcon(item.weather_state_abbr);
+    const condition = createWeatherConditionIcon(item.weather_state_abbr);
     const day = createDiv(getDayName(index), "weather-day");
     const dayItem = createDiv(null, "weather-day-item");
     append(dayItem, [temp, condition, day]);
@@ -45,7 +45,7 @@ function createDiv (value, className) {
   return element;
 }
 
-function createIcon (value) {
+function createWeatherConditionIcon (value) {
   let element = document.createElement("img");
   element.className = "condition";
   element.src = `https://www.metaweather.com/static/img/weather/png/64/${value}.png`
@@ -176,15 +176,24 @@ function setIssueLabels (issueNumber, anchorDiv) {
   .catch(err => console.log(err))
 }
 
+const issueIcon = `<svg aria-hidden="true" class="issue-icon-svg" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>`
+
 fetch(secrets.git)
 .then(response => response.json())
 .then(data => {
   const openIssuesArray = data.filter(item => openIssues(item));
   openIssuesArray.map(issue => {
+    
+    const icon = document.createElement("div");
+    icon.innerHTML = issueIcon;
+    icon.className = "issue-icon";
+
     const anchor = createAnchor(issue.head.ref, issue.html_url);
+    // anchor.innerHTML = issueIcon + anchor.innerHTML;
+    anchor.className = "issue";
     const anchorDiv = createDiv(null, "anchor-container");
     setIssueLabels(issue.number, anchorDiv);
-    append(anchorDiv, [anchor]);
+    append(anchorDiv, [icon, anchor]);
     append(issuesContainer, [anchorDiv]);
   })
 })

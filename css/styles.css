@@ -3,9 +3,17 @@ body {
   margin: 0;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 a {
   color: white;
   text-decoration: none;
+}
+
+svg {
+  fill: currentColor;
 }
 
 #wrapper {
@@ -35,8 +43,12 @@ a {
   font-size: 60px;
 }
 
-.weather-container {
-  margin-bottom: 30px;
+#weather-container {
+  background: rgba(127, 154, 167, 0.12);
+  max-width: 80%;
+  margin: 0 auto;
+  border-radius: 1px;
+  padding: 0 10px 10px;
 }
 
 .weather-day-item {
@@ -65,7 +77,27 @@ a {
 
 #trains-container {}
 
+.train-title {
+  font-size: 16px;
+}
+
+.trains-to-old {
+  background: rgba(127, 154, 167, 0.12);
+  max-width: 80%;
+  margin: 0 auto;
+  border-radius: 1px;
+  padding: 0 10px 10px;
+}
+
 #train-time-to-old {}
+
+.trains-to-nsg {
+  background: rgba(127, 154, 167, 0.12);
+  max-width: 80%;
+  margin: 0 auto;
+  border-radius: 1px;
+  padding: 0 10px 10px;
+}
 
 #train-time-to-nsg {}
 
@@ -77,3 +109,54 @@ a {
 .std {}
 
 .etd {}
+
+#issues-container {
+  /* text-align: left; */
+  /* line-height: 1.25;  */
+  /* font-size: 16px; */
+  /* font-weight: 600; */
+}
+
+.issues-title {
+  display: block;
+  background: rgba(127, 154, 167, 0.12);
+  border-radius: 1px;
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px 10px 10px 32px;
+  font-size: 16px;
+}
+
+.anchor-container {
+  background: rgba(127, 154, 167, 0.12);
+  border-radius: 1px;
+  padding: 10px;
+  width: 80%;
+  margin: 1px auto 0;
+}
+
+.issue-icon {
+  display: inline-block;
+  padding-right: 10px;
+  color: #28a745;
+}
+
+.issue-icon-svg {
+  color: #28a745;
+}
+
+.issue {}
+
+.issue-label {
+  margin-left: 20px;
+  display: inline-block;
+  padding: 3px 4px;
+  font-size: 12px;
+  line-height: 1;
+  border-radius: 2px;
+  box-shadow: inset 0 -1px 0 rgba(27,31,35,0.12);
+  background-color: #7bbfef;
+  color: white;
+  top: -1px;
+  position: relative;
+}
