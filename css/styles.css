@@ -29,10 +29,12 @@ svg {
 }
 
 #container {
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.75);
+  padding: 10px 60px;
+  /* background: rgba(0, 0, 0, 0.75); */
   color: white;
   border-radius: 2px;
+  min-width: 50%;
+  max-width: 80%;
 }
 
 .padded {
@@ -41,12 +43,15 @@ svg {
 
 #daytime-container {
   font-size: 60px;
+  max-width: calc(80% - 30px);
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.75);  
 }
 
 #weather-container {
-  background: rgba(127, 154, 167, 0.12);
-  max-width: 80%;
-  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.75);
+  max-width: calc(80% - 30px);
+  margin: 0 auto 20px;
   border-radius: 1px;
   padding: 0 10px 10px;
 }
@@ -82,8 +87,9 @@ svg {
 }
 
 .trains-to-old {
-  background: rgba(127, 154, 167, 0.12);
-  max-width: 80%;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.75);
+  width: 40%;
   margin: 0 auto;
   border-radius: 1px;
   padding: 0 10px 10px;
@@ -92,8 +98,9 @@ svg {
 #train-time-to-old {}
 
 .trains-to-nsg {
-  background: rgba(127, 154, 167, 0.12);
-  max-width: 80%;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.75);
+  width: 40%;
   margin: 0 auto;
   border-radius: 1px;
   padding: 0 10px 10px;
@@ -104,9 +111,12 @@ svg {
 .time-block {
   display: inline-block;
   padding: 0 20px;
+  min-width: 90px;
 }
 
-.std {}
+.std {
+  margin-bottom: 8px;
+}
 
 .etd {}
 
@@ -119,7 +129,7 @@ svg {
 
 .issues-title {
   display: block;
-  background: rgba(127, 154, 167, 0.12);
+  background: rgba(0, 0, 0, 0.75);
   border-radius: 1px;
   width: 80%;
   margin: 0 auto;
@@ -128,11 +138,11 @@ svg {
 }
 
 .anchor-container {
-  background: rgba(127, 154, 167, 0.12);
+  background: rgba(0, 0, 0, 0.75);
   border-radius: 1px;
   padding: 10px;
   width: 80%;
-  margin: 1px auto 0;
+  margin: 0 auto;
 }
 
 .issue-icon {
