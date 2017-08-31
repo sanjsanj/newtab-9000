@@ -33,7 +33,7 @@ svg {
   /* background: rgba(0, 0, 0, 0.75); */
   color: white;
   border-radius: 2px;
-  min-width: 50%;
+  min-width: 1000px;
   max-width: 80%;
 }
 
@@ -42,7 +42,8 @@ svg {
 }
 
 #daytime-container {
-  font-size: 60px;
+  padding-bottom: 30px;
+  font-size: 40px;
   max-width: calc(80% - 30px);
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.75);  
@@ -169,4 +170,28 @@ svg {
   color: white;
   top: -1px;
   position: relative;
+}
+
+#notifications-container {
+  display: block;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 1px;
+  margin: 0 auto 20px;
+  padding: 10px 10px 10px 32px;
+  font-size: 16px;
+  width: calc(80% - 30px);
+}
+
+#shortcuts-container {
+  width: calc(80% - 30px);
+  margin: 0 auto;
+}
+
+.shortcut-anchor {
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 1px;
+  padding: 10px;
+  width: 33%;
+  display: inline-block;
+  margin-bottom: 4px;
 }
