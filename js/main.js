@@ -139,7 +139,7 @@ function soapRequest (from, to) {
         </soap:Envelope>`;
 }
 
-const issuesContainer = document.getElementById("issues-container");
+const issuesContainer = document.querySelector(".issues-container");
 
 function returnOpenIssue (issue) {
   if (issue.state === "open") return issue;
