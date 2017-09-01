@@ -16,6 +16,10 @@ svg {
   fill: currentColor;
 }
 
+.padded {
+  padding: 20px;
+}
+
 #wrapper {
     background-size: cover;
     background-repeat: no-repeat;
@@ -30,36 +34,34 @@ svg {
 
 #container {
   padding: 10px 60px;
-  /* background: rgba(0, 0, 0, 0.75); */
+  background: rgba(0, 0, 0, 0.75);
   color: white;
   border-radius: 2px;
   min-width: 1000px;
   max-width: 80%;
 }
 
-.padded {
-  padding: 20px;
+.daytime-wrapper {
 }
 
 .daytime-container {
-  padding-bottom: 30px;
   font-size: 40px;
-  max-width: calc(80% - 30px);
-  margin: 0 auto;
-  background: rgba(0, 0, 0, 0.75);  
+}
+
+.weather-and-trains-wrapper {
+  display: inline-table;
+  width: 100%;
 }
 
 .weather-container {
-  background: rgba(0, 0, 0, 0.75);
-  max-width: calc(80% - 30px);
-  margin: 0 auto 20px;
-  border-radius: 1px;
-  padding: 0 10px 10px;
+  display: table-cell;
+  vertical-align: middle;
+  width: 50%;
 }
 
 .weather-day-item {
   display: inline-block;
-  padding: 0 20px;
+  padding: 0 30px;
 }
 
 .temp {
@@ -81,30 +83,22 @@ svg {
   margin-bottom: 10px;
 }
 
-#trains-container {}
-
 .train-title {
   font-size: 16px;
 }
 
 .trains-to-old {
-  display: inline-block;
-  background: rgba(0, 0, 0, 0.75);
-  width: 40%;
-  margin: 0 auto;
-  border-radius: 1px;
-  padding: 0 10px 10px;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 20px;
 }
 
 #train-time-to-old {}
 
 .trains-to-nsg {
-  display: inline-block;
-  background: rgba(0, 0, 0, 0.75);
-  width: 40%;
-  margin: 0 auto;
-  border-radius: 1px;
-  padding: 0 10px 10px;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 20px;  
 }
 
 #train-time-to-nsg {}
@@ -130,19 +124,17 @@ svg {
 
 .issues-title {
   display: block;
-  background: rgba(0, 0, 0, 0.75);
   border-radius: 1px;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   padding: 10px 10px 10px 32px;
   font-size: 16px;
 }
 
 .anchor-container {
-  background: rgba(0, 0, 0, 0.75);
   border-radius: 1px;
   padding: 10px;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -174,21 +166,19 @@ svg {
 
 #notifications-container {
   display: block;
-  background: rgba(0, 0, 0, 0.75);
   border-radius: 1px;
   margin: 0 auto 20px;
   padding: 10px 10px 10px 32px;
   font-size: 16px;
-  width: calc(80% - 30px);
+  width: 100%;
 }
 
 #shortcuts-container {
-  width: calc(80% - 30px);
+  width: 100%;
   margin: 0 auto;
 }
 
 .shortcut-anchor {
-  background: rgba(0, 0, 0, 0.75);
   border-radius: 1px;
   padding: 10px;
   width: 33%;
