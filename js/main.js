@@ -1,5 +1,5 @@
-const daytimeContainer = document.getElementById("daytime-container");
-const weatherContainer = document.getElementById("weather-container");
+const daytimeContainer = document.querySelector(".daytime-container");
+const weatherContainer = document.querySelector(".weather-container");
 
 let date = new Date;  
 const dateOptions = {  
@@ -20,6 +20,28 @@ daytimeContainer.innerText = date.toLocaleDateString("en-GB", dateOptions);
   }, 60000)
 }
 
+function createDiv (value, className) {
+  let element;
+  element = document.createElement("div");
+  element.innerText = value;
+  element.className = className;
+  return element;
+}
+
+function createWeatherConditionIcon (value) {
+  let element = document.createElement("img");
+  element.className = "condition";
+  element.src = `https://www.metaweather.com/static/img/weather/png/64/${value}.png`
+  return element;
+}
+
+function createAnchor (text, url) {
+  let anchor = document.createElement("a");
+  anchor.innerText = text;
+  anchor.href = `${url}/files`;
+  return anchor;
+}
+
 fetch("https://www.metaweather.com/api/location/44418/")
 .then(response => response.json())
 .then(data => {
@@ -37,21 +59,6 @@ fetch("https://www.metaweather.com/api/location/44418/")
 })
 .catch(error => console.log(error));
 
-function createDiv (value, className) {
-  let element;
-  element = document.createElement("div");
-  element.innerText = value;
-  element.className = className;
-  return element;
-}
-
-function createWeatherConditionIcon (value) {
-  let element = document.createElement("img");
-  element.className = "condition";
-  element.src = `https://www.metaweather.com/static/img/weather/png/64/${value}.png`
-  return element;
-}
-
 function append (parent, childArray) {
   return childArray.map(child => {
     if (!child) return;
@@ -59,72 +66,57 @@ function append (parent, childArray) {
   });
 }
 
-let weekday = new Array(7);
-weekday[0] = "Sunday";
-weekday[1] = "Monday";
-weekday[2] = "Tuesday";
-weekday[3] = "Wednesday";
-weekday[4] = "Thursday";
-weekday[5] = "Friday";
-weekday[6] = "Saturday";
-
 function getDayName (index) {
-  return index >= 6
-    ? weekday[0]
-    : weekday[date.getDay() + index];
+  return index === 0
+    ? "today"
+    : "tomorrow";
 }
 
-{
-    let xmlhttp = new XMLHttpRequest();
-    // http://nrodwiki.rockshore.net/index.php/NRE_Darwin_Web_Service_(Public)
-    // https://stackoverflow.com/questions/124269/simplest-soap-example
-    xmlhttp.open('POST', 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb9.asmx', true);
-    xmlhttp.onreadystatechange = () => {
-        if (xmlhttp.readyState == 4) {
-            if (xmlhttp.status == 200) {
-              // https://github.com/metatribal/xmlToJSON
-              const result = xmlToJSON.parseString(xmlhttp.response);
-              const toOldContainer = document.getElementById("train-time-to-old");
-              const services = result.Envelope["0"].Body["0"].GetDepartureBoardResponse["0"].GetStationBoardResult["0"].trainServices["0"].service;
-              services.map((item) => {
-                const std = item.std[0]._text;
-                const etd = item.etd[0]._text;
-                const stdDiv = createDiv(std, "std");
-                const etdDiv = createDiv(etd, "etd");
-                const timeBlock = createDiv(null, "time-block");
-                append(timeBlock, [stdDiv, etdDiv]);
-                append(toOldContainer, [timeBlock]);
-              })
-            }
-        }
+function setupTrainXmlRequest (xmlhttp, parentId, containerId) {
+  // http://nrodwiki.rockshore.net/index.php/NRE_Darwin_Web_Service_(Public)
+  // https://stackoverflow.com/questions/124269/simplest-soap-example
+  xmlhttp.open('POST', 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb9.asmx', true);
+  xmlhttp.onreadystatechange = () => {
+    if (xmlhttp.readyState === 4) {
+      if (xmlhttp.status === 200) {
+        // https://github.com/metatribal/xmlToJSON
+        const result = xmlToJSON.parseString(xmlhttp.response);
+        const toOldContainer = document.getElementById(containerId);
+        const services = result.Envelope[0].Body[0].GetDepartureBoardResponse[0].GetStationBoardResult[0].trainServices[0].service;
+        services.map((item) => {
+          const std = item.std[0]._text;
+          const etd = item.etd[0]._text;
+          const stdDiv = createDiv(std, "std");
+          const etdDiv = createDiv(etd, "etd");
+          const timeBlock = createDiv(null, "time-block");
+          append(timeBlock, [stdDiv, etdDiv]);
+          append(toOldContainer, [timeBlock]);
+        })
+      }
     }
-    xmlhttp.setRequestHeader('Content-Type', 'text/xml');
-    xmlhttp.send(soapRequest("NSG", "OLD"));
+  }
+  let parentElement = document.querySelector(parentId);
+  parentElement.style.display = "inline-block";
 }
 
-{
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.open('POST', 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb9.asmx', true);
-    xmlhttp.onreadystatechange = () => {
-        if (xmlhttp.readyState == 4) {
-            if (xmlhttp.status == 200) {
-              const result = xmlToJSON.parseString(xmlhttp.response);
-              const toNsgContainer = document.getElementById("train-time-to-nsg");
-              const services = result.Envelope["0"].Body["0"].GetDepartureBoardResponse["0"].GetStationBoardResult["0"].trainServices["0"].service;
-              services.map((item) => {
-                const std = item.std[0]._text;
-                const etd = item.etd[0]._text;
-                const stdDiv = createDiv(std, "std");
-                const etdDiv = createDiv(etd, "etd");
-                const timeBlock = createDiv(null, "time-block");
-                append(timeBlock, [stdDiv, etdDiv]);
-                append(toNsgContainer, [timeBlock]);
-              })
-            }
-        }
-    }
-    xmlhttp.setRequestHeader('Content-Type', 'text/xml');
-    xmlhttp.send(soapRequest("OLD", "NSG"));
+function setupTrainTimeElement (parentId, containerId, from, to) {
+  let xmlhttp = new XMLHttpRequest();
+  setupTrainXmlRequest(xmlhttp, parentId, containerId);
+
+  xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+  xmlhttp.send(soapRequest(from, to));
+}
+
+function itsTheMorning () {
+  const newDate = new Date();
+  const hours = newDate.getHours();
+  return hours < 12 ? true : false;
+}
+
+if (itsTheMorning()) {
+  setupTrainTimeElement(".trains-to-old", "train-time-to-old", "NSG", "OLD");
+} else {
+  setupTrainTimeElement(".trains-to-nsg", "train-time-to-nsg", "OLD", "NSG");
 }
 
 function soapRequest (from, to) {
@@ -149,21 +141,8 @@ function soapRequest (from, to) {
 
 const issuesContainer = document.getElementById("issues-container");
 
-function createAnchor (text, url) {
-  let anchor = document.createElement("a");
-  anchor.innerText = text;
-  anchor.href = `${url}/files`;
-  return anchor;
-}
-
-function recentlyUpdatedOpenIssues (item) {
-  const xDays = 1000 * 60 * 60 * 24 * 1;
-  const nowMinusXDays = new Date().getTime() - xDays;
-  if ((item.state === "open") && (new Date(item.updated_at).getTime() >= (nowMinusXDays))) return item;
-}
-
-function openIssues (item) {
-  if (item.state === "open") return item;
+function returnOpenIssue (issue) {
+  if (issue.state === "open") return issue;
 }
 
 function setIssueLabels (issueNumber, anchorDiv) {
@@ -181,17 +160,17 @@ const issueIcon = `<svg aria-hidden="true" class="issue-icon-svg" height="16" ve
 fetch(`https://api.github.com/repos/ComparetheMarket/EpiServerCTM/pulls?state=all&access_token=${secrets.gitToken}`)
 .then(response => response.json())
 .then(data => {
-  const openIssuesArray = data.filter(item => openIssues(item));
+  const openIssuesArray = data.filter(issue => returnOpenIssue(issue));
+  
   openIssuesArray.map(issue => {
-    
     const icon = document.createElement("div");
     icon.innerHTML = issueIcon;
     icon.className = "issue-icon";
 
     const anchor = createAnchor(issue.head.ref, issue.html_url);
-    // anchor.innerHTML = issueIcon + anchor.innerHTML;
     anchor.className = "issue";
     const anchorDiv = createDiv(null, "anchor-container");
+    
     setIssueLabels(issue.number, anchorDiv);
     append(anchorDiv, [icon, anchor]);
     append(issuesContainer, [anchorDiv]);
