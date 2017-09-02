@@ -132,7 +132,11 @@ svg {
 
 .etd {}
 
-.issues-container {}
+.issues-container {
+  text-align: left;
+  margin: 0 auto;
+  width: 775px;
+}
 
 .issues-title {
   display: block;
@@ -146,6 +150,8 @@ svg {
 .octocat-icon {
   width: 40px;
   margin-right: 15px;
+  top: 5px;
+  position: relative;
 }
 
 .anchor-container {
@@ -153,7 +159,7 @@ svg {
   padding: 10px;
   width: 100%;
   margin: 0 auto;
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .issue-icon {
@@ -164,7 +170,19 @@ svg {
 
 .issue-icon-svg {}
 
-.issue {}
+.issue {
+  font-size: 16px;
+}
+
+.issue-comment-icon {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.issue-comment-number {
+  display: inline-block;
+  margin-left: 4px;
+}
 
 .issue-label {
   margin-left: 20px;
@@ -180,13 +198,8 @@ svg {
   position: relative;
 }
 
-#notifications-container {
-  display: block;
-  border-radius: 1px;
-  margin: 0 auto 20px;
-  padding: 10px 10px 10px 32px;
-  font-size: 16px;
-  width: 100%;
+.issue-info {
+  padding-top: 6px;
 }
 
 #shortcuts-container {
