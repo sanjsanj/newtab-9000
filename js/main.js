@@ -38,7 +38,7 @@ function createWeatherConditionIcon (value) {
 function createAnchor (text, url) {
   let anchor = document.createElement("a");
   anchor.innerText = text;
-  anchor.href = `${url}/files`;
+  anchor.href = `${url}`;
   return anchor;
 }
 
@@ -212,7 +212,7 @@ fetch(`https://api.github.com/repos/ComparetheMarket/EpiServerCTM/pulls?state=al
     icon.innerHTML = issueIcon;
     icon.className = "issue-icon";
 
-    const anchor = createAnchor(issue.head.ref, issue.html_url);
+    const anchor = createAnchor(issue.head.ref, `${issue.html_url}/files`);
     anchor.className = "issue";
     
     const lastUpdated = timeSince(issue.updated_at);
@@ -229,5 +229,24 @@ fetch(`https://api.github.com/repos/ComparetheMarket/EpiServerCTM/pulls?state=al
     append(anchorDiv, [icon, anchor, info]);
     append(issuesContainer, [anchorDiv]);
   })
+})
+.catch(err => console.log(err))
+
+const newsContainer = document.querySelector(".news-container");
+
+fetch(`https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=${secrets.newsApi}`)
+.then(response => response.json())
+.then(data => {
+  data.articles.map(article => {
+    const anchor = createAnchor(article.title, article.url);
+    const articleDiv = createDiv(null, "news-item")
+    anchor.className = "news-item-anchor";
+
+    append(articleDiv, [anchor]);
+    append(newsContainer, [articleDiv]);
+  })
+
+  const container = document.querySelector("#container");
+  container.style.opacity = 1;
 })
 .catch(err => console.log(err))
