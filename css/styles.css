@@ -239,3 +239,8 @@ svg {
   width: 24%;
   display: inline-block;
 }
+
+.bitcoin-icon {
+  position: relative;
+  top: 10px;
+}

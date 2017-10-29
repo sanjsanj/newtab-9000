@@ -1,4 +1,4 @@
-function createDiv (value, className) {
+function createDiv(value, className) {
   let element;
   element = document.createElement("div");
   element.innerText = value;
@@ -6,21 +6,21 @@ function createDiv (value, className) {
   return element;
 }
 
-function createWeatherConditionIcon (value) {
+function createWeatherConditionIcon(value) {
   let element = document.createElement("img");
   element.className = "condition";
   element.src = `https://www.metaweather.com/static/img/weather/png/64/${value}.png`
   return element;
 }
 
-function createAnchor (text, url) {
+function createAnchor(text, url) {
   let anchor = document.createElement("a");
   anchor.innerText = text;
   anchor.href = `${url}`;
   return anchor;
 }
 
-function append (parent, childArray) {
+function append(parent, childArray) {
   return childArray.map(child => {
     if (!child) return;
     parent.appendChild(child)

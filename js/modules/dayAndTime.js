@@ -1,6 +1,6 @@
 const daytimeContainer = document.querySelector(".daytime-container");
 
-const dateOptions = {  
+const dateOptions = {
   weekday: "long",
   year: "numeric",
   month: "short",
