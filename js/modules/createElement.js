@@ -24,5 +24,5 @@ function append(parent, childArray) {
   return childArray.map(child => {
     if (!child) return;
     parent.appendChild(child)
-  });
+  })
 }

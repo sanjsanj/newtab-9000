@@ -2,7 +2,7 @@ fetchWeather();
 fetchTrainTimes();
 fetchIssues();
 fetchNews();
-fetchCrypto();
+fetchBtcPrice();
 
 const container = document.querySelector("#container");
 container.style.opacity = 1;
