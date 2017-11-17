@@ -1,4 +1,4 @@
-function fetchBtcPrice() {
+const fetchBtcPrice = () => {
   fetch("https://api.coindesk.com/v1/bpi/currentprice/gbp.json")
     .then(response => response.json())
     .then(data => {

@@ -1,4 +1,4 @@
-function setupTrainXmlRequest(xmlhttp, parentId, containerId) {
+const setupTrainXmlRequest = (xmlhttp, parentId, containerId) => {
   // http://nrodwiki.rockshore.net/index.php/NRE_Darwin_Web_Service_(Public)
   // https://stackoverflow.com/questions/124269/simplest-soap-example
   xmlhttp.open('POST', 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb9.asmx', true);
@@ -24,7 +24,7 @@ function setupTrainXmlRequest(xmlhttp, parentId, containerId) {
   parentElement.style.display = "inline-block";
 }
 
-function soapRequest(from, to) {
+const soapRequest = (from, to) => {
   return `<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:typ="http://thalesgroup.com/RTTI/2013-11-28/Token/types" xmlns:ldb="http://thalesgroup.com/RTTI/2016-02-16/ldb/">
           <soap:Header>
               <typ:AccessToken>
@@ -44,7 +44,7 @@ function soapRequest(from, to) {
         </soap:Envelope>`;
 }
 
-function setupTrainTimeElement(parentId, containerId, from, to) {
+const setupTrainTimeElement = (parentId, containerId, from, to) => {
   let xmlhttp = new XMLHttpRequest();
   setupTrainXmlRequest(xmlhttp, parentId, containerId);
 
@@ -52,13 +52,13 @@ function setupTrainTimeElement(parentId, containerId, from, to) {
   xmlhttp.send(soapRequest(from, to));
 }
 
-function itsTheMorning() {
+const itsTheMorning = () => {
   const newDate = new Date();
   const hours = newDate.getHours();
   return hours < 12 ? true : false;
 }
 
-function fetchTrainTimes() {
+const fetchTrainTimes = () => {
   if (itsTheMorning()) {
     setupTrainTimeElement(".trains-to-old", "train-time-to-old", "NSG", "OLD");
   } else {

@@ -1,12 +1,8 @@
-const weatherContainer = document.querySelector(".weather-container");
+const weatherContainer = document.querySelector(".weather-container")
 
-function getDayName(index) {
-  return index === 0
-    ? "today"
-    : "tomorrow";
-}
+const getDayName = index => (index === 0 ? "today" : "tomorrow")
 
-function fetchWeather() {
+const fetchWeather = () => {
   fetch("https://www.metaweather.com/api/location/44418/")
     .then(response => response.json())
     .then(data => {

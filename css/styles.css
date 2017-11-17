@@ -236,11 +236,12 @@ svg {
 }
 
 .shortcut-anchor {
-  width: 19%;
+  width: 16%;
   display: inline-block;
 }
 
 .bitcoin-icon {
   position: relative;
-  top: 10px;
+  width: 18px;
+  top: 3px;
 }
