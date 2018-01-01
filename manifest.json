@@ -12,7 +12,12 @@
     "newtab": "newtab.html"
   },
   "permissions": [
+        "storage",
         "http://*/*",
         "https://*/*"
-  ]
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  }
 }
