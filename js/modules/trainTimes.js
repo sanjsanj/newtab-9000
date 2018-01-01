@@ -55,7 +55,7 @@ const setupTrainTimeElement = (parentId, containerId, from, to) => {
 const itsTheMorning = () => {
   const newDate = new Date();
   const hours = newDate.getHours();
-  return hours < 12 ? true : false;
+  return hours < 12;
 }
 
 const fetchTrainTimes = () => {
