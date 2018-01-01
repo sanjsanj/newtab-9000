@@ -42,6 +42,14 @@ svg {
   max-width: 80%;
 }
 
+#go-to-options {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  cursor: pointer;
+}
+
 .daytime-wrapper {
 }
 
