@@ -12,7 +12,7 @@ const setIssueLabels = (issueNumber, anchorDiv) => {
     .catch(err => console.log(err))
 }
 
-const setComments= (issueNumber, anchor) => {
+const setComments = (issueNumber, anchor) => {
   fetch(`https://api.github.com/repos/ComparetheMarket/CTM.MIT/pulls/${issueNumber}/comments?access_token=${secrets.gitToken}`)
     .then(response => response.json())
     .then(comments => {
@@ -54,31 +54,42 @@ const timeSince = date => {
   return Math.floor(seconds) + " seconds";
 }
 
-const fetchIssues = () => {
+const fetchIssues = () => {  
   fetch(`https://api.github.com/repos/ComparetheMarket/CTM.MIT/pulls?state=all&access_token=${secrets.gitToken}`)
-    .then(response => response.json())
-    .then(data => {
-      const openIssuesArray = data.filter(issue => issue.state === "open");
-
-      openIssuesArray.map(issue => {
-        const icon = document.createElement("div");
-        icon.innerHTML = issueIcon;
-        icon.className = "issue-icon";
-
-        const anchor = createAnchor(issue.head.ref, `${issue.html_url}/files`);
-        anchor.className = "issue";
-
-        const lastUpdated = timeSince(issue.updated_at);
-        const info = createDiv(`${issue.user.login} - last updated ${lastUpdated} ago`, "issue-info");
-
-        setComments(issue.number, anchor);
-        setIssueLabels(issue.number, anchor);
-
-        const anchorDiv = createDiv(null, "anchor-container");
-        append(anchorDiv, [icon, anchor, info]);
-
-        append(issuesContainer, [anchorDiv]);
-      })
+  .then(response => response.json())
+  .then(data => {
+    const openIssuesArray = data.filter(issue => issue.state === "open");
+    
+    openIssuesArray.map(issue => {
+      const icon = document.createElement("div");
+      icon.innerHTML = issueIcon;
+      icon.className = "issue-icon";
+      
+      const anchor = createAnchor(issue.head.ref, `${issue.html_url}/files`);
+      anchor.className = "issue";
+      
+      const lastUpdated = timeSince(issue.updated_at);
+      const info = createDiv(`${issue.user.login} - last updated ${lastUpdated} ago`, "issue-info");
+      
+      setComments(issue.number, anchor);
+      setIssueLabels(issue.number, anchor);
+      
+      const anchorDiv = createDiv(null, "anchor-container");
+      append(anchorDiv, [icon, anchor, info]);
+      
+      append(issuesContainer, [anchorDiv]);
     })
-    .catch(err => console.log(err))
+  })
+  .catch(err => console.log(err))
+}
+
+const fetchNotifications = () => {
+  fetch(`https://api.github.com/notifications?access_token=${secrets.gitToken}`)
+  .then(response => response.json())
+  .then(data => {
+    if (data.length > 0) {
+      document.querySelector('.issues-notifications').style.display = 'inline-block';
+    }
+  })
+  .catch(err => console.log(err))
 }

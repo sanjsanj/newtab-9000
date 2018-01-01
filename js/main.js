@@ -1,6 +1,7 @@
 fetchWeather();
 fetchTrainTimes();
 fetchIssues();
+fetchNotifications();
 fetchNews();
 fetchBtcPrice();
 
