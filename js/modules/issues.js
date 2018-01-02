@@ -10,22 +10,37 @@ const setIssueLabels = (issueNumber, anchorDiv) => {
       append(anchorDiv, [element]);
     })
     .catch(err => console.log(err))
-}
-
+  }
+  
 const setComments = (issueNumber, anchor) => {
   fetch(`https://api.github.com/repos/ComparetheMarket/CTM.MIT/pulls/${issueNumber}/comments?access_token=${secrets.gitToken}`)
-    .then(response => response.json())
-    .then(comments => {
-      if (comments.length < 1) return null;
+  .then(response => response.json())
+  .then(comments => {
+    if (comments.length < 1) return null;
+    
+    const element = createDiv(comments.length, "issue-comment-number");
+    const icon = document.createElement("div");
+    icon.innerHTML = commentIcon;
+    icon.className = "issue-comment-icon";
+    
+    append(anchor, [icon, element]);
+  })
+  .catch(err => console.log(err))
+}
 
-      const element = createDiv(comments.length, "issue-comment-number");
-      const icon = document.createElement("div");
-      icon.innerHTML = commentIcon;
-      icon.className = "issue-comment-icon";
-
-      append(anchor, [icon, element]);
+const setReviewStatus = (issueNumber, info) => {
+  fetch(`https://api.github.com/repos/ComparetheMarket/CTM.MIT/pulls/${issueNumber}/reviews?state=all&access_token=${secrets.gitToken}`)
+  .then(response => response.json())
+  .then(data => {
+    let text = "Review required";
+    data.forEach(review => {
+      if (review.state === "APPROVED") {
+        text = "Approved";
+      }
     })
-    .catch(err => console.log(err))
+    info.innerText += ` - ${text}`;
+  })
+  .catch(err => console.log(err))  
 }
 
 const timeSince = date => {
@@ -69,10 +84,12 @@ const fetchIssues = () => {
       anchor.className = "issue";
       
       const lastUpdated = timeSince(issue.updated_at);
+      
       const info = createDiv(`${issue.user.login} - last updated ${lastUpdated} ago`, "issue-info");
       
       setComments(issue.number, anchor);
       setIssueLabels(issue.number, anchor);
+      setReviewStatus(issue.number, info);
       
       const anchorDiv = createDiv(null, "anchor-container");
       append(anchorDiv, [icon, anchor, info]);
