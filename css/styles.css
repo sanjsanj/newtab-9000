@@ -239,6 +239,15 @@ svg {
   overflow: auto;
 }
 
+.news-container::-webkit-scrollbar {
+	width: 8px;
+	background-color: #000000;
+}
+
+.news-container::-webkit-scrollbar-thumb {
+	background-color: #D62929;
+}
+
 .news-item {
   margin-bottom: 12px;
 }
