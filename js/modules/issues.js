@@ -82,18 +82,15 @@ const fetchIssues = () => {
       
       const anchor = createAnchor(issue.head.ref, `${issue.html_url}/files`);
       anchor.className = "issue";
-      
-      const lastUpdated = timeSince(issue.updated_at);
-      
-      const info = createDiv(`${issue.user.login} - last updated ${lastUpdated} ago`, "issue-info");
-      
       setComments(issue.number, anchor);
       setIssueLabels(issue.number, anchor);
+      
+      const lastUpdated = timeSince(issue.updated_at);
+      const info = createDiv(`${issue.user.login} - last updated ${lastUpdated} ago`, "issue-info");
       setReviewStatus(issue.number, info);
       
       const anchorDiv = createDiv(null, "anchor-container");
       append(anchorDiv, [icon, anchor, info]);
-      
       append(issuesContainer, [anchorDiv]);
     })
   })

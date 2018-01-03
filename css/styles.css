@@ -144,7 +144,7 @@ svg {
 .issues-container {
   display: inline-block;
   text-align: left;
-  width: 60%;
+  width: 54%;
   padding-left: 30px;
   vertical-align: middle;
 }
@@ -230,26 +230,22 @@ svg {
 
 .news-container {
   display: inline-block;
-  width: 39%;
+  width: 45%;
   vertical-align: middle;
   text-align: left;
   font-size: 14px;
   padding-right: 30px;
-}
-
-.news-header {
-  margin-bottom: 30px;
-}
-
-.news-icon {
-  position: relative;
-  margin-right: 15px;
-  width: 64px;
-  top: 24px;
+  height: 55vh;
+  overflow: auto;
 }
 
 .news-item {
-  margin-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+.news-source-image {
+  width: 18px;
+  margin-right: 7px;
 }
 
 .news-item-anchor {}
