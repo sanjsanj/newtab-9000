@@ -1,0 +1,6 @@
+{
+    "extends": "airbnb-base",
+    "rules": {
+        "array-callback-return": "off"
+    }
+}

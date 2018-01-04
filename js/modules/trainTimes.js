@@ -1,3 +1,7 @@
+import secrets from '../secrets';
+import xmlToJSON from '../vendor/xmlToJSON.min';
+import { createDiv, append } from './createElement';
+
 const setupTrainXmlRequest = (xmlhttp, parentId, containerId) => {
   // http://nrodwiki.rockshore.net/index.php/NRE_Darwin_Web_Service_(Public)
   // https://stackoverflow.com/questions/124269/simplest-soap-example
@@ -11,21 +15,20 @@ const setupTrainXmlRequest = (xmlhttp, parentId, containerId) => {
         services.map((item) => {
           const std = item.std[0]._text;
           const etd = item.etd[0]._text;
-          const stdDiv = createDiv(std, "std");
-          const etdDiv = createDiv(etd, "etd");
-          const timeBlock = createDiv(null, "time-block");
+          const stdDiv = createDiv(std, 'std');
+          const etdDiv = createDiv(etd, 'etd');
+          const timeBlock = createDiv(null, 'time-block');
           append(timeBlock, [stdDiv, etdDiv]);
           append(toOldContainer, [timeBlock]);
-        })
+        });
       }
     }
-  }
-  let parentElement = document.querySelector(parentId);
-  parentElement.style.display = "inline-block";
-}
+  };
+  const parentElement = document.querySelector(parentId);
+  parentElement.style.display = 'inline-block';
+};
 
-const soapRequest = (from, to) => {
-  return `<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:typ="http://thalesgroup.com/RTTI/2013-11-28/Token/types" xmlns:ldb="http://thalesgroup.com/RTTI/2016-02-16/ldb/">
+const soapRequest = (from, to) => `<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:typ="http://thalesgroup.com/RTTI/2013-11-28/Token/types" xmlns:ldb="http://thalesgroup.com/RTTI/2016-02-16/ldb/">
           <soap:Header>
               <typ:AccessToken>
                 <typ:TokenValue>${secrets.railApiToken}</typ:TokenValue>
@@ -42,26 +45,25 @@ const soapRequest = (from, to) => {
               </ldb:GetDepartureBoardRequest>
           </soap:Body>
         </soap:Envelope>`;
-}
 
 const setupTrainTimeElement = (parentId, containerId, from, to) => {
-  let xmlhttp = new XMLHttpRequest();
+  const xmlhttp = new XMLHttpRequest();
   setupTrainXmlRequest(xmlhttp, parentId, containerId);
 
   xmlhttp.setRequestHeader('Content-Type', 'text/xml');
   xmlhttp.send(soapRequest(from, to));
-}
+};
 
 const itsTheMorning = () => {
   const newDate = new Date();
   const hours = newDate.getHours();
   return hours < 12;
-}
+};
 
-const fetchTrainTimes = () => {
+export default function fetchTrainTimes() {
   if (itsTheMorning()) {
-    setupTrainTimeElement(".trains-to-old", "train-time-to-old", "NSG", "OLD");
+    setupTrainTimeElement('.trains-to-old', 'train-time-to-old', 'NSG', 'OLD');
   } else {
-    setupTrainTimeElement(".trains-to-nsg", "train-time-to-nsg", "OLD", "NSG");
+    setupTrainTimeElement('.trains-to-nsg', 'train-time-to-nsg', 'OLD', 'NSG');
   }
 }
