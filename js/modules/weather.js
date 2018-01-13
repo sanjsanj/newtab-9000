@@ -1,5 +1,3 @@
-/* global document, fetch */
-
 import { createDiv, append, createWeatherConditionIcon } from './createElement';
 
 const weatherContainer = document.querySelector('.weather-container');

@@ -65,13 +65,13 @@ svg {
 }
 
 .weather-container {
-  display: table-cell;
+  display: inline-block;
   vertical-align: middle;
-  width: 50%;
+  width: 33%;
 }
 
 .weather-icon-anchor {
-  padding: 0 30px;
+  padding: 0 10px;
 }
 
 .weather-icon {
@@ -82,7 +82,7 @@ svg {
 
 .weather-day-item {
   display: inline-block;
-  padding: 0 30px;
+  padding: 0 10px;
 }
 
 .temp {
@@ -115,21 +115,14 @@ svg {
   font-size: 16px;
 }
 
-.trains-to-old {
-  display: table-cell;
+.trains-to-old, .trains-to-nsg {
+  display: inline-block;
   vertical-align: middle;
+  width: 33%;
   font-size: 20px;
 }
 
-#train-time-to-old {}
-
-.trains-to-nsg {
-  display: table-cell;
-  vertical-align: middle;
-  font-size: 20px;  
-}
-
-#train-time-to-nsg {}
+#train-time-to-old, #train-time-to-nsg {}
 
 .time-block {
   display: inline-block;
@@ -142,6 +135,11 @@ svg {
 }
 
 .etd {}
+
+.todo-container {
+  display: inline-block;
+  width: 33%;
+}
 
 .issues-container {
   display: inline-block;

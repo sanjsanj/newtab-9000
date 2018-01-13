@@ -1,5 +1,3 @@
-/* global document */
-
 export function createDiv(value, className) {
   const element = document.createElement('div');
   element.innerText = value;

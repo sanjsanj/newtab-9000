@@ -7,12 +7,4 @@ module.exports = {
     path: path.join(__dirname, './js'),
     filename: 'app.js',
   },
-
-  module: {
-    rules: [
-    ],
-  },
-
-  plugins: [
-  ],
 };

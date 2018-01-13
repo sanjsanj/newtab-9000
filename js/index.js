@@ -2,6 +2,7 @@
 
 import fetchWeather from './modules/weather';
 import fetchTrainTimes from './modules/trainTimes';
+import todos from './modules/todos';
 import { fetchIssues, fetchNotifications } from './modules/issues';
 import fetchNews from './modules/news';
 import fetchBtcPrice from './modules/btc';
