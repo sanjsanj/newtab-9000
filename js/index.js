@@ -2,14 +2,14 @@
 
 import fetchWeather from './modules/weather';
 import fetchTrainTimes from './modules/trainTimes';
-import { setupTodos } from './modules/todos';
+import { setupNotes } from './modules/notes';
 import { fetchIssues, fetchNotifications } from './modules/issues';
 import fetchNews from './modules/news';
 import fetchBtcPrice from './modules/btc';
 import dayAndTime from './modules/dayAndTime';
 
 dayAndTime();
-setupTodos();
+setupNotes();
 fetchWeather();
 fetchTrainTimes();
 fetchIssues();

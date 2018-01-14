@@ -136,13 +136,13 @@ svg {
 
 .etd {}
 
-.todo-container {
+.notes-container {
   display: inline-block;
   position: relative;
   width: 33%;
 }
 
-.todo-item {
+.note-textarea {
   width: 100%;
   background-color: #4e4e4eeb;
   color: navajowhite;
