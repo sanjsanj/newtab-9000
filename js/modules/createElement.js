@@ -25,3 +25,17 @@ export function append(parent, childArray) {
     parent.appendChild(child);
   });
 }
+
+export function createNotes(text) {
+  const container = document.querySelector('.todo-container');
+  let input = document.createElement("textarea");
+  input.className = "todo-item";
+  input.spellcheck = false;
+  input.value = text;
+  input.onchange = (e) => {
+    chrome.storage.sync.set({
+      "text": e.target.value
+    })
+  }
+  append(container, [input]);
+}

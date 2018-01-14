@@ -2,13 +2,14 @@
 
 import fetchWeather from './modules/weather';
 import fetchTrainTimes from './modules/trainTimes';
-import todos from './modules/todos';
+import { setupTodos } from './modules/todos';
 import { fetchIssues, fetchNotifications } from './modules/issues';
 import fetchNews from './modules/news';
 import fetchBtcPrice from './modules/btc';
 import dayAndTime from './modules/dayAndTime';
 
 dayAndTime();
+setupTodos();
 fetchWeather();
 fetchTrainTimes();
 fetchIssues();
@@ -19,12 +20,12 @@ fetchBtcPrice();
 const container = document.querySelector('#container');
 container.style.opacity = 1;
 
-document.querySelector('#go-to-options').addEventListener(
-  'click',
-  () => chrome.runtime.openOptionsPage(),
-);
+// document.querySelector('#go-to-options').addEventListener(
+//   'click',
+//   () => chrome.runtime.openOptionsPage(),
+// );
 
-chrome.storage.sync.get(
-  'favoriteColor',
-  item => console.log(item),
-);
+// chrome.storage.sync.get(
+//   'favoriteColor',
+//   item => console.log(item),
+// );
