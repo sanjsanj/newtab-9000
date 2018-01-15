@@ -17,7 +17,7 @@ svg {
 }
 
 .padded {
-  padding: 20px 0;
+  padding: 12px 0;
 }
 
 #wrapper {
@@ -67,7 +67,8 @@ svg {
 .weather-container {
   display: inline-block;
   vertical-align: middle;
-  width: 33%;
+  width: 32%;
+  background-color: #4e4e4e8f;
 }
 
 .weather-icon-anchor {
@@ -118,7 +119,10 @@ svg {
 .trains-to-old, .trains-to-nsg {
   display: inline-block;
   vertical-align: middle;
+  background-color: #4e4e4e8f;
+  margin: 0 1%;
   width: 33%;
+  height: 130px;
   font-size: 20px;
 }
 
@@ -144,14 +148,15 @@ svg {
 
 .note-textarea {
   width: 100%;
-  background-color: #4e4e4eeb;
+  background-color: #4e4e4e8f;
   color: navajowhite;
   border: 0;
   padding: 5px;
   position: absolute;
-  top: -60px;
+  top: -67px;
   left: 0;
-  height: 125px;
+  height: 130px;
+  resize: none;
 }
 
 .issues-container {
@@ -246,17 +251,19 @@ svg {
   vertical-align: middle;
   text-align: left;
   font-size: 14px;
-  padding-right: 30px;
+  padding-right: 12px;
   height: 55vh;
   overflow: auto;
 }
 
-.news-container::-webkit-scrollbar {
+.news-container::-webkit-scrollbar,
+.note-textarea::-webkit-scrollbar {
 	width: 8px;
 	background-color: #000000;
 }
 
-.news-container::-webkit-scrollbar-thumb {
+.news-container::-webkit-scrollbar-thumb,
+.note-textarea::-webkit-scrollbar-thumb {
 	background-color: #D62929;
 }
 
