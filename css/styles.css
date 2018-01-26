@@ -35,8 +35,8 @@ svg {
 #container {
   opacity: 0;
   -webkit-transition: opacity 1s ease-in;
-  background: rgba(0, 0, 0, 0.44);
-  color: white;
+  background: rgba(0, 0, 0, 0.45);
+  color: #efefef;
   border-radius: 2px;
   min-width: 1000px;
   max-width: 80%;
@@ -130,7 +130,6 @@ svg {
 
 .time-block {
   display: inline-block;
-  padding: 0 20px;
   min-width: 90px;
 }
 
