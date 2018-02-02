@@ -8,7 +8,7 @@ body {
 }
 
 a {
-  color: white;
+  color: #000000;
   text-decoration: none;
 }
 
@@ -17,26 +17,22 @@ svg {
 }
 
 .padded {
-  padding: 12px 0;
+  padding: 18px 0;
 }
 
 #wrapper {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    min-width: 100vw;
-    min-height: 100vh;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #container {
   opacity: 0;
   -webkit-transition: opacity 1s ease-in;
-  background: rgba(0, 0, 0, 0.45);
-  color: #efefef;
+  color: #000000;
   border-radius: 2px;
   min-width: 1000px;
   max-width: 80%;
@@ -46,7 +42,7 @@ svg {
   position: absolute;
   top: 10px;
   right: 10px;
-  color: white;
+  color: rgb(0, 0, 0);
   background-color: #ffffff59;;
   border-radius: 50%;
   cursor: pointer;
@@ -68,7 +64,6 @@ svg {
   display: inline-block;
   vertical-align: middle;
   width: 32%;
-  background-color: #4e4e4e8f;
 }
 
 .weather-icon-anchor {
@@ -119,7 +114,6 @@ svg {
 .trains-to-old, .trains-to-nsg {
   display: inline-block;
   vertical-align: middle;
-  background-color: #4e4e4e8f;
   margin: 0 1%;
   width: 33%;
   height: 130px;
@@ -147,8 +141,7 @@ svg {
 
 .note-textarea {
   width: 100%;
-  background-color: #4e4e4e8f;
-  color: navajowhite;
+  color: #000000;
   border: 0;
   padding: 5px;
   position: absolute;
@@ -257,13 +250,13 @@ svg {
 
 .news-container::-webkit-scrollbar,
 .note-textarea::-webkit-scrollbar {
-	width: 8px;
-	background-color: #000000;
+	width: 4px;
+	background-color: #e0e0e0;
 }
 
 .news-container::-webkit-scrollbar-thumb,
 .note-textarea::-webkit-scrollbar-thumb {
-	background-color: #D62929;
+	background-color: #a8bede;
 }
 
 .news-item {
@@ -279,6 +272,7 @@ svg {
 
 #shortcuts-container {
   font-size: 14px;
+  margin: 10px 0;
 }
 
 .shortcut-anchor {
