@@ -6,7 +6,7 @@ const issueIcon = '<svg aria-hidden="true" class="issue-icon-svg" height="16" ve
 const commentIcon = '<svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M14 1H2c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h2v3.5L7.5 11H14c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1zm0 9H7l-2 2v-2H2V2h12v8z"></path></svg>';
 
 const setIssueLabels = (issueNumber, anchorDiv) => {
-  fetch(`https://api.github.com/repos/ComparetheMarket/CTM.MIT/issues/${issueNumber}/labels?access_token=${secrets.gitToken}`)
+  fetch(`https://api.github.com/repos/ComparetheMarket/EpiServerCTM/issues/${issueNumber}/labels?access_token=${secrets.gitToken}`)
     .then(response => response.json())
     .then((labelData) => {
       const element = (labelData[0] === undefined) ? null : createDiv(labelData[0].name, 'issue-label');
@@ -16,7 +16,7 @@ const setIssueLabels = (issueNumber, anchorDiv) => {
 };
 
 const setComments = (issueNumber, anchor) => {
-  fetch(`https://api.github.com/repos/ComparetheMarket/CTM.MIT/pulls/${issueNumber}/comments?access_token=${secrets.gitToken}`)
+  fetch(`https://api.github.com/repos/ComparetheMarket/EpiServerCTM/pulls/${issueNumber}/comments?access_token=${secrets.gitToken}`)
     .then(response => response.json())
     .then((comments) => {
       if (comments.length < 1) return null;
@@ -32,7 +32,7 @@ const setComments = (issueNumber, anchor) => {
 };
 
 const setReviewStatus = (issueNumber, info) => {
-  fetch(`https://api.github.com/repos/ComparetheMarket/CTM.MIT/pulls/${issueNumber}/reviews?state=all&access_token=${secrets.gitToken}`)
+  fetch(`https://api.github.com/repos/ComparetheMarket/EpiServerCTM/pulls/${issueNumber}/reviews?state=all&access_token=${secrets.gitToken}`)
     .then(response => response.json())
     .then((data) => {
       let text = 'Review required';
@@ -73,7 +73,7 @@ const timeSince = (date) => {
 };
 
 export function fetchIssues() {
-  fetch(`https://api.github.com/repos/ComparetheMarket/CTM.MIT/pulls?state=all&access_token=${secrets.gitToken}`)
+  fetch(`https://api.github.com/repos/ComparetheMarket/EpiServerCTM/pulls?state=all&access_token=${secrets.gitToken}`)
     .then(response => response.json())
     .then((data) => {
       const openIssuesArray = data.filter(issue => issue.state === 'open');
