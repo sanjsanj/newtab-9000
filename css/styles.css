@@ -43,13 +43,13 @@ svg {
   top: 10px;
   right: 10px;
   color: rgb(0, 0, 0);
-  background-color: #ffffff59;;
+  background-color: #ffffff59;
+  ;
   border-radius: 50%;
   cursor: pointer;
 }
 
-.daytime-wrapper {
-}
+.daytime-wrapper {}
 
 .daytime-container {
   font-size: 40px;
@@ -226,7 +226,7 @@ svg {
   font-size: 12px;
   line-height: 1;
   border-radius: 2px;
-  box-shadow: inset 0 -1px 0 rgba(27,31,35,0.12);
+  box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12);
   background-color: #7bbfef;
   color: white;
   top: -1px;
@@ -248,15 +248,13 @@ svg {
   overflow: auto;
 }
 
-.news-container::-webkit-scrollbar,
-.note-textarea::-webkit-scrollbar {
-	width: 4px;
-	background-color: #e0e0e0;
+.news-container::-webkit-scrollbar, .note-textarea::-webkit-scrollbar {
+  width: 4px;
+  background-color: #e0e0e0;
 }
 
-.news-container::-webkit-scrollbar-thumb,
-.note-textarea::-webkit-scrollbar-thumb {
-	background-color: #a8bede;
+.news-container::-webkit-scrollbar-thumb, .note-textarea::-webkit-scrollbar-thumb {
+  background-color: #a8bede;
 }
 
 .news-item {

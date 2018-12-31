@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/sanjsanj/newtab-9000#readme",
   "devDependencies": {
-    "webpack": "^3.10.0"
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.1.2"
   }
 }
